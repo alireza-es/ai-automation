@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aria — AI Automation Assistant</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <!-- Navigation -->
+    <nav class="nav" id="nav">
+      <div class="nav__inner">
+        <a href="#" class="nav__logo">
+          <svg class="nav__logo-icon" viewBox="0 0 32 32" fill="none">
+            <rect width="32" height="32" rx="8" fill="url(#logo-grad)" />
+            <path d="M10 22L16 10L22 22" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M12.5 18H19.5" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+            <defs>
+              <linearGradient id="logo-grad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+                <stop stop-color="#6C63FF"/>
+                <stop offset="1" stop-color="#3ECFCF"/>
+              </linearGradient>
+            </defs>
+          </svg>
+          <span>Aria</span>
+        </a>
+        <ul class="nav__links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#how-it-works">How it works</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+        </ul>
+        <div class="nav__actions">
+          <a href="#" class="btn btn--ghost">Log in</a>
+          <a href="#" class="btn btn--primary">Get started free</a>
+        </div>
+        <button class="nav__hamburger" id="hamburger" aria-label="Toggle menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+      <div class="hero__bg">
+        <div class="hero__orb hero__orb--1"></div>
+        <div class="hero__orb hero__orb--2"></div>
+        <div class="hero__orb hero__orb--3"></div>
+        <div class="hero__grid"></div>
+      </div>
+      <div class="container">
+        <div class="hero__badge">
+          <span class="hero__badge-dot"></span>
+          <span>Now with GPT-4o · Gemini · Claude</span>
+        </div>
+        <h1 class="hero__headline">
+          Your AI assistant that<br />
+          <span class="gradient-text">automates everything</span>
+        </h1>
+        <p class="hero__subline">
+          Aria connects to your tools, learns your workflows, and handles the
+          repetitive work — so you can focus on what actually matters.
+        </p>
+        <div class="hero__cta">
+          <a href="#" class="btn btn--primary btn--lg">
+            Start for free
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#how-it-works" class="btn btn--ghost btn--lg">
+            <svg viewBox="0 0 20 20" fill="none">
+              <circle cx="10" cy="10" r="8" stroke="currentColor" stroke-width="1.8"/>
+              <path d="M8 7.5L13 10L8 12.5V7.5Z" fill="currentColor"/>
+            </svg>
+            Watch demo
+          </a>
+        </div>
+        <p class="hero__social-proof">
+          Trusted by <strong>12,000+</strong> teams at companies like
+          <span class="hero__logos">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/200px-Google_2015_logo.svg.png" alt="Google" height="16" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/200px-Amazon_logo.svg.png" alt="Amazon" height="16" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/200px-Netflix_2015_logo.svg.png" alt="Netflix" height="14" />
+          </span>
+        </p>
+
+        <!-- Hero UI mockup -->
+        <div class="hero__mockup" id="hero-mockup">
+          <div class="mockup__window">
+            <div class="mockup__topbar">
+              <span class="mockup__dot mockup__dot--red"></span>
+              <span class="mockup__dot mockup__dot--yellow"></span>
+              <span class="mockup__dot mockup__dot--green"></span>
+              <span class="mockup__title">Aria — AI Assistant</span>
+            </div>
+            <div class="mockup__body">
+              <div class="chat__message chat__message--bot">
+                <div class="chat__avatar">A</div>
+                <div class="chat__bubble">
+                  Hi! I'm Aria. I've connected to your Slack, Notion, and Gmail.
+                  What would you like to automate today?
+                </div>
+              </div>
+              <div class="chat__message chat__message--user">
+                <div class="chat__bubble">
+                  Summarize all unread emails from last week and create a Notion task for each action item.
+                </div>
+              </div>
+              <div class="chat__message chat__message--bot">
+                <div class="chat__avatar">A</div>
+                <div class="chat__bubble">
+                  <span class="typing" id="typing-text"></span>
+                </div>
+              </div>
+              <div class="mockup__tasks" id="mockup-tasks" style="display:none">
+                <div class="mockup__task mockup__task--done">
+                  <svg viewBox="0 0 16 16"><path d="M3 8l3.5 3.5L13 4" stroke="#3ECFCF" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+                  Found 23 unread emails
+                </div>
+                <div class="mockup__task mockup__task--done">
+                  <svg viewBox="0 0 16 16"><path d="M3 8l3.5 3.5L13 4" stroke="#3ECFCF" stroke-width="2" stroke-linecap="round" fill="none"/></svg>
+                  Summarized 7 action items
+                </div>
+                <div class="mockup__task mockup__task--loading" id="task-loading">
+                  <svg class="spin" viewBox="0 0 16 16"><circle cx="8" cy="8" r="6" stroke="#6C63FF" stroke-width="2" fill="none" stroke-dasharray="20" stroke-dashoffset="10"/></svg>
+                  Creating Notion tasks…
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Logos bar -->
+    <section class="logos-bar">
+      <div class="container">
+        <p class="logos-bar__label">Integrates with your favorite tools</p>
+        <div class="logos-bar__track">
+          <div class="logos-bar__inner">
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#E01E5A"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+              Slack
+            </div>
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#EA4335"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Notion
+            </div>
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#4285F4"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+              Gmail
+            </div>
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#0052CC"><path d="M11.53 2c-.15 0-.3.07-.38.2L.1 21.4c-.08.14-.08.3 0 .44.08.13.23.21.38.21H23.5c.16 0 .3-.08.39-.21.08-.14.08-.3 0-.44L12.28 2.2C12.2 2.07 12.06 2 11.93 2h-.4z"/></svg>
+              Jira
+            </div>
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>
+              WhatsApp
+            </div>
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#FF6C37"><path d="M13.527.099C6.955-.744.942 3.9.099 10.473c-.843 6.572 3.8 12.584 10.373 13.428 6.573.843 12.587-3.801 13.428-10.374C24.744 6.955 20.101.943 13.527.099zm2.471 7.485a.855.855 0 0 0-.593.25l-4.453 4.453-.307-.307-.643-.643c4.389-4.376 5.18-4.418 5.996-3.753zm-9.548 5.943l.765.765-1.ytter.97 3.53 3.53-3.53-1.97-.97-1.97.97z"/></svg>
+              Postman
+            </div>
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#171515"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </div>
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#0078D4"><path d="M11.5 2L2 7.5V18l9.5 5.5L21 18V7.5L11.5 2zM11.5 4.236L19 8.5V17L11.5 21.264 4 17V8.5l7.5-4.264z"/></svg>
+              Azure
+            </div>
+            <!-- Duplicated for infinite scroll -->
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#E01E5A"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52zM6.313 15.165a2.527 2.527 0 0 1 2.521-2.52 2.527 2.527 0 0 1 2.521 2.52v6.313A2.528 2.528 0 0 1 8.834 24a2.528 2.528 0 0 1-2.521-2.522v-6.313zM8.834 5.042a2.528 2.528 0 0 1-2.521-2.52A2.528 2.528 0 0 1 8.834 0a2.528 2.528 0 0 1 2.521 2.522v2.52H8.834zM8.834 6.313a2.528 2.528 0 0 1 2.521 2.521 2.528 2.528 0 0 1-2.521 2.521H2.522A2.528 2.528 0 0 1 0 8.834a2.528 2.528 0 0 1 2.522-2.521h6.312zM18.956 8.834a2.528 2.528 0 0 1 2.522-2.521A2.528 2.528 0 0 1 24 8.834a2.528 2.528 0 0 1-2.522 2.521h-2.522V8.834zM17.688 8.834a2.528 2.528 0 0 1-2.523 2.521 2.527 2.527 0 0 1-2.52-2.521V2.522A2.527 2.527 0 0 1 15.165 0a2.528 2.528 0 0 1 2.523 2.522v6.312zM15.165 18.956a2.528 2.528 0 0 1 2.523 2.522A2.528 2.528 0 0 1 15.165 24a2.527 2.527 0 0 1-2.52-2.522v-2.522h2.52zM15.165 17.688a2.527 2.527 0 0 1-2.52-2.523 2.526 2.526 0 0 1 2.52-2.52h6.313A2.527 2.527 0 0 1 24 15.165a2.528 2.528 0 0 1-2.522 2.523h-6.313z"/></svg>
+              Slack
+            </div>
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#0052CC"><path d="M11.53 2c-.15 0-.3.07-.38.2L.1 21.4c-.08.14-.08.3 0 .44.08.13.23.21.38.21H23.5c.16 0 .3-.08.39-.21.08-.14.08-.3 0-.44L12.28 2.2C12.2 2.07 12.06 2 11.93 2h-.4z"/></svg>
+              Jira
+            </div>
+            <div class="integration-badge">
+              <svg viewBox="0 0 24 24" fill="#171515"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              GitHub
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Features</span>
+          <h2 class="section-title">Built to handle the work you hate doing</h2>
+          <p class="section-sub">
+            Aria doesn't just answer questions — it takes action across your entire
+            stack of tools, end to end.
+          </p>
+        </div>
+        <div class="features__grid">
+          <div class="feature-card feature-card--large">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+              </svg>
+            </div>
+            <h3>Intelligent task understanding</h3>
+            <p>
+              Describe what you need in plain English. Aria understands context,
+              intent, and multi-step dependencies — no special syntax required.
+            </p>
+            <div class="feature-card__visual">
+              <div class="prompt-pill">
+                <span class="prompt-pill__cursor">›</span>
+                "Schedule a weekly digest of my GitHub PRs and send it to Slack"
+              </div>
+            </div>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+              </svg>
+            </div>
+            <h3>Workflow automation</h3>
+            <p>
+              Build repeatable automations with conditional logic, loops, and
+              triggers. Set it once, run forever.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M13 10V3L4 14h7v7l9-11h-7z"/>
+              </svg>
+            </div>
+            <h3>Real-time execution</h3>
+            <p>
+              Watch tasks execute live. Aria streams results, shows progress, and
+              handles errors gracefully — all in real time.
+            </p>
+          </div>
+
+          <div class="feature-card">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+              </svg>
+            </div>
+            <h3>Enterprise-grade security</h3>
+            <p>
+              SOC 2 Type II certified. End-to-end encryption. Your data never
+              trains any AI model.
+            </p>
+          </div>
+
+          <div class="feature-card feature-card--large feature-card--right">
+            <div class="feature-card__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+              </svg>
+            </div>
+            <h3>Analytics & insights</h3>
+            <p>
+              Track time saved, tasks completed, and ROI. Aria surfaces patterns in
+              your workflows so you can keep optimizing.
+            </p>
+            <div class="feature-card__stats">
+              <div class="stat">
+                <span class="stat__num" data-target="14">0</span><span>h</span>
+                <span class="stat__label">saved per week</span>
+              </div>
+              <div class="stat">
+                <span class="stat__num" data-target="340">0</span>
+                <span class="stat__label">tasks automated</span>
+              </div>
+              <div class="stat">
+                <span class="stat__num" data-target="98">0</span><span>%</span>
+                <span class="stat__label">accuracy rate</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- How it works -->
+    <section class="how-it-works" id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">How it works</span>
+          <h2 class="section-title">Up and running in 3 minutes</h2>
+          <p class="section-sub">
+            No code. No complicated setup. Just connect, describe, and automate.
+          </p>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step__number">01</div>
+            <div class="step__content">
+              <h3>Connect your tools</h3>
+              <p>
+                Link your apps with one click. Aria supports 150+ integrations
+                including Slack, Gmail, Notion, Jira, GitHub, Salesforce, and more.
+              </p>
+            </div>
+            <div class="step__visual step__visual--connect">
+              <div class="connect-grid">
+                <div class="connect-icon" style="--delay:0s"><svg viewBox="0 0 24 24" fill="#E01E5A" width="24"><path d="M5.042 15.165a2.528 2.528 0 0 1-2.52 2.523A2.528 2.528 0 0 1 0 15.165a2.527 2.527 0 0 1 2.522-2.52h2.52v2.52z"/></svg></div>
+                <div class="connect-icon" style="--delay:.1s"><svg viewBox="0 0 24 24" fill="#EA4335" width="24"><circle cx="12" cy="12" r="10"/></svg></div>
+                <div class="connect-icon" style="--delay:.2s"><svg viewBox="0 0 24 24" fill="#0052CC" width="24"><path d="M11.53 2c-.15 0-.3.07-.38.2L.1 21.4h23.8L12.28 2.2C12.2 2.07 12.06 2 11.93 2h-.4z"/></svg></div>
+                <div class="connect-icon" style="--delay:.3s"><svg viewBox="0 0 24 24" fill="#171515" width="24"><circle cx="12" cy="12" r="10"/></svg></div>
+                <div class="connect-icon connect-icon--center" style="--delay:.4s">
+                  <svg viewBox="0 0 32 32" fill="none" width="32">
+                    <rect width="32" height="32" rx="8" fill="url(#logo-grad2)"/>
+                    <path d="M10 22L16 10L22 22" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M12.5 18H19.5" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                    <defs><linearGradient id="logo-grad2" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#3ECFCF"/></linearGradient></defs>
+                  </svg>
+                </div>
+                <div class="connect-icon" style="--delay:.5s"><svg viewBox="0 0 24 24" fill="#25D366" width="24"><circle cx="12" cy="12" r="10"/></svg></div>
+                <div class="connect-icon" style="--delay:.6s"><svg viewBox="0 0 24 24" fill="#FF6C37" width="24"><circle cx="12" cy="12" r="10"/></svg></div>
+                <div class="connect-icon" style="--delay:.7s"><svg viewBox="0 0 24 24" fill="#4285F4" width="24"><circle cx="12" cy="12" r="10"/></svg></div>
+                <div class="connect-icon" style="--delay:.8s"><svg viewBox="0 0 24 24" fill="#0078D4" width="24"><circle cx="12" cy="12" r="10"/></svg></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="step step--reverse">
+            <div class="step__number">02</div>
+            <div class="step__content">
+              <h3>Describe what you need</h3>
+              <p>
+                Tell Aria what you want in plain language. It figures out the steps,
+                asks clarifying questions if needed, and plans the workflow for you.
+              </p>
+            </div>
+            <div class="step__visual step__visual--describe">
+              <div class="speech-bubble">
+                <p>"Every Monday morning, pull last week's support tickets from Zendesk, group them by category, and post a summary to the #support-team Slack channel."</p>
+                <div class="speech-bubble__tail"></div>
+              </div>
+              <div class="speech-bubble speech-bubble--bot">
+                <p>Got it! I'll set up a weekly automation. Here's my plan: <strong>✓ Fetch tickets → ✓ Categorize → ✓ Summarize → ✓ Post to Slack.</strong> Shall I activate it?</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="step">
+            <div class="step__number">03</div>
+            <div class="step__content">
+              <h3>Automate & iterate</h3>
+              <p>
+                Aria runs your automation, monitors results, and learns from feedback.
+                Refine your workflows anytime — in plain English.
+              </p>
+            </div>
+            <div class="step__visual step__visual--automate">
+              <div class="flow-diagram">
+                <div class="flow-node flow-node--trigger">⚡ Every Monday 9am</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-node">📥 Fetch tickets</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-node">🗂️ Categorize</div>
+                <div class="flow-arrow"></div>
+                <div class="flow-node flow-node--end">📤 Post to Slack</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="pricing" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Pricing</span>
+          <h2 class="section-title">Simple, transparent pricing</h2>
+          <p class="section-sub">Start free. Scale as you grow. No hidden fees.</p>
+        </div>
+        <div class="pricing__toggle">
+          <span class="pricing__toggle-label">Monthly</span>
+          <label class="toggle-switch">
+            <input type="checkbox" id="billing-toggle" />
+            <span class="toggle-switch__slider"></span>
+          </label>
+          <span class="pricing__toggle-label">
+            Annual
+            <span class="pricing__badge">Save 20%</span>
+          </span>
+        </div>
+        <div class="pricing__grid">
+          <div class="pricing-card">
+            <div class="pricing-card__header">
+              <span class="pricing-card__plan">Starter</span>
+              <div class="pricing-card__price">
+                <span class="pricing-card__currency">$</span>
+                <span class="pricing-card__amount" data-monthly="0" data-annual="0">0</span>
+                <span class="pricing-card__period">/mo</span>
+              </div>
+              <p class="pricing-card__desc">For individuals getting started with AI automation.</p>
+            </div>
+            <ul class="pricing-card__features">
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> 100 tasks / month</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> 5 integrations</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Basic workflows</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Community support</li>
+            </ul>
+            <a href="#" class="btn btn--outline btn--full">Get started free</a>
+          </div>
+
+          <div class="pricing-card pricing-card--featured">
+            <div class="pricing-card__badge">Most popular</div>
+            <div class="pricing-card__header">
+              <span class="pricing-card__plan">Pro</span>
+              <div class="pricing-card__price">
+                <span class="pricing-card__currency">$</span>
+                <span class="pricing-card__amount" data-monthly="49" data-annual="39">49</span>
+                <span class="pricing-card__period">/mo</span>
+              </div>
+              <p class="pricing-card__desc">For professionals who automate their entire workday.</p>
+            </div>
+            <ul class="pricing-card__features">
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Unlimited tasks</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg> 50+ integrations</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Advanced workflows & conditionals</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Priority support</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Analytics dashboard</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="white" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Custom AI instructions</li>
+            </ul>
+            <a href="#" class="btn btn--white btn--full">Start Pro trial</a>
+          </div>
+
+          <div class="pricing-card">
+            <div class="pricing-card__header">
+              <span class="pricing-card__plan">Enterprise</span>
+              <div class="pricing-card__price">
+                <span class="pricing-card__amount">Custom</span>
+              </div>
+              <p class="pricing-card__desc">For teams needing advanced security and control.</p>
+            </div>
+            <ul class="pricing-card__features">
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Everything in Pro</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> 150+ integrations</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> SSO / SAML</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Dedicated account manager</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> Custom data retention</li>
+              <li><svg viewBox="0 0 16 16"><path d="M3 8l3 3 7-7" stroke="#3ECFCF" stroke-width="2" fill="none" stroke-linecap="round"/></svg> SLA guarantees</li>
+            </ul>
+            <a href="#" class="btn btn--outline btn--full">Contact sales</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="testimonials" id="testimonials">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Reviews</span>
+          <h2 class="section-title">Loved by teams worldwide</h2>
+        </div>
+        <div class="testimonials__grid">
+          <div class="testimonial-card">
+            <div class="testimonial-card__stars">★★★★★</div>
+            <p>"Aria saved our ops team 20+ hours a week. We automated our entire client onboarding pipeline in one afternoon."</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar">S</div>
+              <div>
+                <strong>Sarah Chen</strong>
+                <span>Head of Operations, Finwave</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card testimonial-card--featured">
+            <div class="testimonial-card__stars">★★★★★</div>
+            <p>"I was skeptical about AI tools, but Aria actually understands what I need. It's like having a brilliant assistant who works 24/7."</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar">M</div>
+              <div>
+                <strong>Marcus T.</strong>
+                <span>Founder, Launchpad Studio</span>
+              </div>
+            </div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-card__stars">★★★★★</div>
+            <p>"We replaced 3 different Zapier automations with one Aria workflow. Simpler, faster, and way smarter."</p>
+            <div class="testimonial-card__author">
+              <div class="testimonial-card__avatar">J</div>
+              <div>
+                <strong>Jamie L.</strong>
+                <span>Engineering Lead, Crux AI</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA Banner -->
+    <section class="cta-banner">
+      <div class="cta-banner__bg">
+        <div class="hero__orb hero__orb--1"></div>
+        <div class="hero__orb hero__orb--2"></div>
+      </div>
+      <div class="container">
+        <h2>Start automating today.<br/>Your first 100 tasks are free.</h2>
+        <p>No credit card required. Set up in under 3 minutes.</p>
+        <div class="cta-banner__actions">
+          <a href="#" class="btn btn--white btn--lg">
+            Get started free
+            <svg viewBox="0 0 20 20" fill="none">
+              <path d="M4 10h12M10 4l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </a>
+          <a href="#" class="btn btn--ghost-white btn--lg">Talk to sales</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="footer__top">
+          <div class="footer__brand">
+            <a href="#" class="nav__logo">
+              <svg class="nav__logo-icon" viewBox="0 0 32 32" fill="none">
+                <rect width="32" height="32" rx="8" fill="url(#logo-grad3)"/>
+                <path d="M10 22L16 10L22 22" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                <path d="M12.5 18H19.5" stroke="white" stroke-width="2.5" stroke-linecap="round"/>
+                <defs><linearGradient id="logo-grad3" x1="0" y1="0" x2="32" y2="32"><stop stop-color="#6C63FF"/><stop offset="1" stop-color="#3ECFCF"/></linearGradient></defs>
+              </svg>
+              <span>Aria</span>
+            </a>
+            <p>AI automation for the modern team. Built to save you time, every day.</p>
+            <div class="footer__social">
+              <a href="#" aria-label="Twitter/X">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+              </a>
+              <a href="#" aria-label="LinkedIn">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+              </a>
+              <a href="#" aria-label="GitHub">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+              </a>
+            </div>
+          </div>
+          <div class="footer__links">
+            <div class="footer__col">
+              <h4>Product</h4>
+              <ul>
+                <li><a href="#">Features</a></li>
+                <li><a href="#">Integrations</a></li>
+                <li><a href="#">Pricing</a></li>
+                <li><a href="#">Changelog</a></li>
+                <li><a href="#">Roadmap</a></li>
+              </ul>
+            </div>
+            <div class="footer__col">
+              <h4>Resources</h4>
+              <ul>
+                <li><a href="#">Documentation</a></li>
+                <li><a href="#">API Reference</a></li>
+                <li><a href="#">Blog</a></li>
+                <li><a href="#">Community</a></li>
+                <li><a href="#">Status</a></li>
+              </ul>
+            </div>
+            <div class="footer__col">
+              <h4>Company</h4>
+              <ul>
+                <li><a href="#">About</a></li>
+                <li><a href="#">Careers</a></li>
+                <li><a href="#">Press</a></li>
+                <li><a href="#">Partners</a></li>
+                <li><a href="#">Contact</a></li>
+              </ul>
+            </div>
+            <div class="footer__col">
+              <h4>Legal</h4>
+              <ul>
+                <li><a href="#">Privacy</a></li>
+                <li><a href="#">Terms</a></li>
+                <li><a href="#">Security</a></li>
+                <li><a href="#">Cookies</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="footer__bottom">
+          <p>© 2026 Aria AI, Inc. All rights reserved.</p>
+          <p>Made with ♥ for teams who love automation.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
